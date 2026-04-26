@@ -6,13 +6,13 @@ namespace NorthWind.Services.Customer;
 
 public class CustomerService(NorthWindDbContext dbContext) : ICustomerService
 {
-    public async Task<IList<CustomerOverviewDto>> GetCustomers(string? customerName)
+    public async Task<IList<CustomerOverviewDto>> GetCustomers(string? contactName)
     {
         IQueryable<Infrastructure.Persistance.Generated.Entities.Customer> customersQuery = dbContext.Customers.AsNoTracking();
 
-        if (!string.IsNullOrWhiteSpace(customerName))
+        if (!string.IsNullOrWhiteSpace(contactName))
         {
-            customersQuery = customersQuery.Where(customer => customer.ContactName.Contains(customerName));
+            customersQuery = customersQuery.Where(customer => customer.ContactName.StartsWith(contactName));
         }
 
         return await customersQuery.Select(customer => new CustomerOverviewDto

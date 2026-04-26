@@ -1,4 +1,7 @@
-﻿namespace NorthWind.Infrastructure.Persistance.Generated.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace NorthWind.Infrastructure.Persistance.Generated.Entities;
 
 public partial class Product
 {
