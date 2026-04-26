@@ -17,3 +17,7 @@
 - Configure backend service URL in `src/api/axiosInstance.ts`
 - Run the app - `npm run dev`
 - Add the frontend service URL in `appsettings.Development.json; "AllowedOrigins": [...]`
+
+#### Notes:
+- Agentic work was mainly done on the frontend. The prompts used can be found in `PROMPTS.md`
+- I mapped out some general guidelines and project structure in `CLAUDE.md` for more context on the app
