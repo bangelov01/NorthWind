@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NorthWind.Domain.Entities;
+using NorthWind.Infrastructure.Persistance.Entities;
 
 namespace NorthWind.Infrastructure.Persistance.Configurations;
 
-public class RegionConfiguration : IEntityTypeConfiguration<Region>
+internal class RegionConfiguration : IEntityTypeConfiguration<Region>
 {
     public void Configure(EntityTypeBuilder<Region> builder)
     {

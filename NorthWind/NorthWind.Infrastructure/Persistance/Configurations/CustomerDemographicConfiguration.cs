@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NorthWind.Domain.Entities;
+using NorthWind.Infrastructure.Persistance.Entities;
 
 namespace NorthWind.Infrastructure.Persistance.Configurations;
 
-public class CustomerDemographicConfiguration : IEntityTypeConfiguration<CustomerDemographic>
+internal class CustomerDemographicConfiguration : IEntityTypeConfiguration<CustomerDemographic>
 {
     public void Configure(EntityTypeBuilder<CustomerDemographic> builder)
     {

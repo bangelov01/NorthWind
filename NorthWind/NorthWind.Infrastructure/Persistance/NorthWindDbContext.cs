@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NorthWind.Domain.Entities;
+using NorthWind.Infrastructure.Persistance.Entities;
 
 namespace NorthWind.Infrastructure.Persistance;
 

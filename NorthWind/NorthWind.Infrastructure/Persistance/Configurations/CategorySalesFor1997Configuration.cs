@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NorthWind.Domain.Entities;
+using NorthWind.Infrastructure.Persistance.Entities;
 
 namespace NorthWind.Infrastructure.Persistance.Configurations;
 
-public class CategorySalesFor1997Configuration : IEntityTypeConfiguration<CategorySalesFor1997>
+internal class CategorySalesFor1997Configuration : IEntityTypeConfiguration<CategorySalesFor1997>
 {
     public void Configure(EntityTypeBuilder<CategorySalesFor1997> builder)
     {

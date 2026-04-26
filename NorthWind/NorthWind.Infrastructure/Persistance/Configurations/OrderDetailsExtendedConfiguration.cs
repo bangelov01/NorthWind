@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NorthWind.Domain.Entities;
+using NorthWind.Infrastructure.Persistance.Entities;
 
 namespace NorthWind.Infrastructure.Persistance.Configurations;
 
-public class OrderDetailsExtendedConfiguration : IEntityTypeConfiguration<OrderDetailsExtended>
+internal class OrderDetailsExtendedConfiguration : IEntityTypeConfiguration<OrderDetailsExtended>
 {
     public void Configure(EntityTypeBuilder<OrderDetailsExtended> builder)
     {

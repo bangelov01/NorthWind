@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NorthWind.Domain.Entities;
+using NorthWind.Infrastructure.Persistance.Entities;
 
 namespace NorthWind.Infrastructure.Persistance.Configurations;
 
-public class ShipperConfiguration : IEntityTypeConfiguration<Shipper>
+internal class ShipperConfiguration : IEntityTypeConfiguration<Shipper>
 {
-
     public void Configure(EntityTypeBuilder<Shipper> builder)
     {
         builder.Property(e => e.ShipperId).HasColumnName("ShipperID");

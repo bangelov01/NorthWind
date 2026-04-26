@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NorthWind.Domain.Entities;
+using NorthWind.Infrastructure.Persistance.Entities;
 
 namespace NorthWind.Infrastructure.Persistance.Configurations;
 
-public class QuarterlyOrderConfiguration : IEntityTypeConfiguration<QuarterlyOrder>
+internal class QuarterlyOrderConfiguration : IEntityTypeConfiguration<QuarterlyOrder>
 {
     public void Configure(EntityTypeBuilder<QuarterlyOrder> builder)
     {

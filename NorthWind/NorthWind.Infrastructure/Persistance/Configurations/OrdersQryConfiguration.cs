@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NorthWind.Domain.Entities;
+using NorthWind.Infrastructure.Persistance.Entities;
 
 namespace NorthWind.Infrastructure.Persistance.Configurations;
 
-public class OrdersQryConfiguration : IEntityTypeConfiguration<OrdersQry>
+internal class OrdersQryConfiguration : IEntityTypeConfiguration<OrdersQry>
 {
     public void Configure(EntityTypeBuilder<OrdersQry> builder)
     {

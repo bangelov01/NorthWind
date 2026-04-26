@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NorthWind.Domain.Entities;
+using NorthWind.Infrastructure.Persistance.Entities;
 
 namespace NorthWind.Infrastructure.Persistance.Configurations;
 
-public class OrderSubtotalConfiguration : IEntityTypeConfiguration<OrderSubtotal>
+internal class OrderSubtotalConfiguration : IEntityTypeConfiguration<OrderSubtotal>
 {
     public void Configure(EntityTypeBuilder<OrderSubtotal> builder)
     {

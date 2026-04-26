@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\NorthWind.Domain\NorthWind.Domain.csproj" />
+      <Folder Include="Customer\Dto\" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Customer\Dto\" />
+      <ProjectReference Include="..\NorthWind.Infrastructure\NorthWind.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

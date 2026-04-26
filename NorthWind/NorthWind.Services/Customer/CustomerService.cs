@@ -1,6 +1,5 @@
 ﻿namespace NorthWind.Services.Customer;
 
-public class CustomerService
+public class CustomerService : ICustomerService
 {
-    
 }

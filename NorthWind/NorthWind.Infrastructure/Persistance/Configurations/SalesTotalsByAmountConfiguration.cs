@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NorthWind.Domain.Entities;
+using NorthWind.Infrastructure.Persistance.Entities;
 
 namespace NorthWind.Infrastructure.Persistance.Configurations;
 
-public class SalesTotalsByAmountConfiguration : IEntityTypeConfiguration<SalesTotalsByAmount>
+internal class SalesTotalsByAmountConfiguration : IEntityTypeConfiguration<SalesTotalsByAmount>
 {
     public void Configure(EntityTypeBuilder<SalesTotalsByAmount> builder)
     {
