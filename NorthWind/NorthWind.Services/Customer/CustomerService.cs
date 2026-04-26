@@ -4,7 +4,7 @@ using NorthWind.Services.Customer.Dto;
 
 namespace NorthWind.Services.Customer;
 
-public class CustomerService(NorthWindDbContext dbContext) : ICustomerService
+internal class CustomerService(NorthWindDbContext dbContext) : ICustomerService
 {
     public async Task<IList<CustomerOverviewDto>> GetCustomers(string? contactName)
     {

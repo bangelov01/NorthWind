@@ -25,7 +25,6 @@
       <ProjectReference Include="..\NorthWind.Api\NorthWind.Api.csproj" />
       <ProjectReference Include="..\NorthWind.Infrastructure\NorthWind.Infrastructure.csproj" />
       <ProjectReference Include="..\NorthWind.Services.Tests\NorthWind.Services.Tests.csproj" />
-      <ProjectReference Include="..\NorthWind.Services\NorthWind.Services.csproj" />
     </ItemGroup>
 
 </Project>

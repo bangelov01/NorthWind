@@ -10,4 +10,8 @@
       <ProjectReference Include="..\NorthWind.Infrastructure\NorthWind.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="NorthWind.Services.Tests" />
+    </ItemGroup>
+
 </Project>
