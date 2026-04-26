@@ -1,0 +1,4 @@
+GET {{NorthWind_Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
