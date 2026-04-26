@@ -1,5 +1,10 @@
-﻿namespace NorthWind.Services.Customer;
+﻿using NorthWind.Services.Customer.Dto;
+
+namespace NorthWind.Services.Customer;
 
 public interface ICustomerService
 {
+    Task<IList<CustomerOverviewDto>> GetCustomers(string? customerName);
+
+    Task<CustomerDetailsDto?> GetCustomerDetails(string id);
 }

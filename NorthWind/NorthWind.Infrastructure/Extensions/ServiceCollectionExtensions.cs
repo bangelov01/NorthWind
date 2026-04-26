@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NorthWind.Infrastructure.Persistance;
+using NorthWind.Infrastructure.Persistance.Generated;
 
 namespace NorthWind.Infrastructure.Extensions;
 

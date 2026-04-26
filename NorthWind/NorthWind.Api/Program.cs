@@ -1,3 +1,4 @@
+using FluentValidation;
 using NorthWind.Api.Extensions;
 using NorthWind.Api.Middleware;
 using NorthWind.Infrastructure.Extensions;
@@ -14,17 +15,22 @@ public class Program
         builder.Services.AddInfrastructure(builder.Configuration, builder.Environment.IsDevelopment());
         builder.Services.AddServices();
 
+        builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, includeInternalTypes: true);
+
         builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder.Services.AddProblemDetails();
         builder.Services.AddOpenApi();
         builder.Services.AddCorsPolicy(builder.Configuration);
         builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 
         WebApplication app = builder.Build();
 
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
+            app.UseSwagger();
             app.UseSwaggerUI();
         }
 

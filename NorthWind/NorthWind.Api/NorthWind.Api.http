@@ -1,4 +1,4 @@
-GET {{NorthWind_Api_HostAddress}}/weatherforecast/
+GET {{NorthWind_Api_HostAddress}}/api/
 Accept: application/json
 
 ###
