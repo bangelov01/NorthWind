@@ -25,7 +25,7 @@ public class CustomersController(ICustomerService customerService) : ControllerB
             return ValidationProblem(new ValidationProblemDetails(validationResult.ToDictionary()));
         }
 
-        IList<CustomerOverviewDto> customers = await customerService.GetCustomers(criteria.ContactName);
+        IList<CustomerOverviewDto> customers = await customerService.GetCustomers(criteria.CompanyName);
 
         return Ok(customers);
     }

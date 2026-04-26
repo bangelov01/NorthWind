@@ -6,19 +6,19 @@ namespace NorthWind.Services.Customer;
 
 internal class CustomerService(NorthWindDbContext dbContext) : ICustomerService
 {
-    public async Task<IList<CustomerOverviewDto>> GetCustomers(string? contactName)
+    public async Task<IList<CustomerOverviewDto>> GetCustomers(string? companyName)
     {
         IQueryable<Infrastructure.Persistance.Generated.Entities.Customer> customersQuery = dbContext.Customers.AsNoTracking();
 
-        if (!string.IsNullOrWhiteSpace(contactName))
+        if (!string.IsNullOrWhiteSpace(companyName))
         {
-            customersQuery = customersQuery.Where(customer => customer.ContactName.StartsWith(contactName));
+            customersQuery = customersQuery.Where(customer => customer.CompanyName.StartsWith(companyName));
         }
 
         return await customersQuery.Select(customer => new CustomerOverviewDto
             {
                 CustomerId = customer.CustomerId,
-                ContactName = customer.ContactName,
+                CompanyName = customer.CompanyName,
                 OrderCount = customer.Orders.Count
             }).ToListAsync();
     }
@@ -42,6 +42,7 @@ internal class CustomerService(NorthWindDbContext dbContext) : ICustomerService
                            Phone = customer.Phone,
                            Fax = customer.Fax,
                            Orders = customer.Orders
+                               .OrderByDescending(order => order.OrderId)
                                .Select(order => new OrderSummaryDto
                                    {
                                        OrderId = order.OrderId,

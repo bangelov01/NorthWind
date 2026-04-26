@@ -2,5 +2,5 @@
 
 public class CustomerSearchCriteria
 {
-    public string? ContactName { get; init; }
+    public string? CompanyName { get; init; }
 }

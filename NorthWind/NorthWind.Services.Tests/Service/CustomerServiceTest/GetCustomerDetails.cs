@@ -41,6 +41,11 @@ internal class GetCustomerDetails : DatabaseTestBase
         await _EntityFactory.GetOrderDetail(order, await _EntityFactory.GetProduct("firstTestProductName", true), 200m, 2, 0.2f);
         await _EntityFactory.GetOrderDetail(order, await _EntityFactory.GetProduct("secondTestProductName", true), 300m, 5, 0.1f);
 
+        Order secondOrder = await _EntityFactory.GetOrder();
+        secondOrder.Customer = customer;
+        await _EntityFactory.GetOrderDetail(secondOrder, await _EntityFactory.GetProduct("otherProduct", true), 350m, 2, 0.2f);
+        await _EntityFactory.GetOrderDetail(secondOrder, await _EntityFactory.GetProduct("secondOtherProduct", true), 400m, 5, 0.2f);
+
         await _DbContext.SaveChangesAsync();
 
         // Act
@@ -61,9 +66,16 @@ internal class GetCustomerDetails : DatabaseTestBase
         Assert.That(result.Phone, Is.EqualTo(customer.Phone));
         Assert.That(result.Fax, Is.EqualTo(customer.Fax));
 
-        Assert.That(result.Orders, Has.Count.EqualTo(1));
-        Assert.That(result.Orders.First().OrderId, Is.EqualTo(order.OrderId));
-        Assert.That(result.Orders.First().TotalValue, Is.EqualTo(1670.0m));
-        Assert.That(result.Orders.First().ProductCount, Is.EqualTo(order.OrderDetails.Count));
+        Assert.That(result.Orders, Has.Count.EqualTo(2));
+
+        OrderSummaryDto firstInList = result.Orders.First();
+        Assert.That(firstInList.OrderId, Is.EqualTo(secondOrder.OrderId));
+        Assert.That(firstInList.TotalValue, Is.EqualTo(2160.0m));
+        Assert.That(firstInList.ProductCount, Is.EqualTo(secondOrder.OrderDetails.Count));
+
+        OrderSummaryDto secondInList = result.Orders.Last();
+        Assert.That(secondInList.OrderId, Is.EqualTo(order.OrderId));
+        Assert.That(secondInList.TotalValue, Is.EqualTo(1670.0m));
+        Assert.That(secondInList.ProductCount, Is.EqualTo(order.OrderDetails.Count));
     }
 }

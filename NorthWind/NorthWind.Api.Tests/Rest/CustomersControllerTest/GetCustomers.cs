@@ -12,18 +12,18 @@ internal class GetCustomers : ApiTestBase
 {
     [TestCase(null)]
     [TestCase("      ")]
-    public async Task When_CalledWithNoContactNameFilter(string? filter)
+    public async Task When_CalledWithNoCompanyNameFilter(string? filter)
     {
         // Arrange
         Customer customer = await _EntityFactory.GetCustomer("ALFKI", "testCompany");
 
         Customer secondCustomer = await _EntityFactory.GetCustomer("AJHTZ", "secondTestCompany");
-        secondCustomer.ContactName = "secondTestCustomer";
+        secondCustomer.CompanyName = "secondTestCustomer";
 
         await _DbContext.SaveChangesAsync();
 
         // Act
-        HttpResponseMessage response = await _HttpClient.GetAsync($"/api/customers{(filter == null ? string.Empty : $"?contactName={filter}")}");
+        HttpResponseMessage response = await _HttpClient.GetAsync($"/api/customers{(filter == null ? string.Empty : $"?companyName={filter}")}");
         IList<CustomerOverviewDto>? result = await response.Content.ReadFromJsonAsync<IList<CustomerOverviewDto>>();
 
         // Assert
@@ -34,27 +34,27 @@ internal class GetCustomers : ApiTestBase
 
         Assert.That(result, Has.Count.EqualTo(2));
         Assert.That(result[0].CustomerId, Is.EqualTo(customer.CustomerId));
-        Assert.That(result[0].ContactName, Is.EqualTo(customer.ContactName));
+        Assert.That(result[0].CompanyName, Is.EqualTo(customer.CompanyName));
         Assert.That(result[0].OrderCount, Is.EqualTo(customer.Orders.Count));
 
         Assert.That(result[1].CustomerId, Is.EqualTo(secondCustomer.CustomerId));
-        Assert.That(result[1].ContactName, Is.EqualTo(secondCustomer.ContactName));
+        Assert.That(result[1].CompanyName, Is.EqualTo(secondCustomer.CompanyName));
         Assert.That(result[1].OrderCount, Is.EqualTo(secondCustomer.Orders.Count));
     }
 
     [Test]
-    public async Task When_CalledWithContactNameFilter()
+    public async Task When_CalledWithCompanyNameFilter()
     {
         // Arrange
         Customer customer = await _EntityFactory.GetCustomer("ALFKI", "testCompany");
 
         Customer secondCustomer = await _EntityFactory.GetCustomer("AJHTZ", "secondTestCompany");
-        secondCustomer.ContactName = "secondTestCustomer";
+        secondCustomer.CompanyName = "secondTestCustomer";
 
         await _DbContext.SaveChangesAsync();
 
         // Act
-        HttpResponseMessage response = await _HttpClient.GetAsync($"/api/customers?contactName={customer.ContactName}");
+        HttpResponseMessage response = await _HttpClient.GetAsync($"/api/customers?companyName={customer.CompanyName}");
         IList<CustomerOverviewDto>? result = await response.Content.ReadFromJsonAsync<IList<CustomerOverviewDto>>();
 
         // Assert
@@ -65,12 +65,12 @@ internal class GetCustomers : ApiTestBase
 
         Assert.That(result, Has.Count.EqualTo(1));
         Assert.That(result[0].CustomerId, Is.EqualTo(customer.CustomerId));
-        Assert.That(result[0].ContactName, Is.EqualTo(customer.ContactName));
+        Assert.That(result[0].CompanyName, Is.EqualTo(customer.CompanyName));
         Assert.That(result[0].OrderCount, Is.EqualTo(customer.Orders.Count));
     }
 
     [Test]
-    public async Task When_CalledWithContactNameFilter_And_LengthExceedsMaxLength()
+    public async Task When_CalledWithCompanyNameFilter_And_LengthExceedsMaxLength()
     {
         // Arrange
         await _EntityFactory.GetCustomer("ALFKI", "testCompany");
@@ -78,7 +78,7 @@ internal class GetCustomers : ApiTestBase
         await _DbContext.SaveChangesAsync();
 
         // Act
-        HttpResponseMessage response = await _HttpClient.GetAsync($"/api/customers?contactName={new string('a', 31)}");
+        HttpResponseMessage response = await _HttpClient.GetAsync($"/api/customers?companyName={new string('a', 31)}");
         ValidationProblemDetails? result = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
 
         // Assert
@@ -87,10 +87,10 @@ internal class GetCustomers : ApiTestBase
 
         Assert.That(result, Is.Not.Null);
         Assert.That(result.Errors, Has.Count.EqualTo(1));
-        Assert.That(result.Errors.TryGetValue(nameof(CustomerSearchCriteria.ContactName), out string[]? errorMessages), Is.True);
+        Assert.That(result.Errors.TryGetValue(nameof(CustomerSearchCriteria.CompanyName), out string[]? errorMessages), Is.True);
 
         Assert.That(errorMessages, Is.Not.Null);
         Assert.That(errorMessages, Has.Length.EqualTo(1));
-        Assert.That(errorMessages[0], Is.EqualTo("Contact name cannot be longer than 30 characters."));
+        Assert.That(errorMessages[0], Is.EqualTo("Company name cannot be longer than 30 characters."));
     }
 }

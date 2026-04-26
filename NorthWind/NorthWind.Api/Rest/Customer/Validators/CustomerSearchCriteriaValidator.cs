@@ -7,8 +7,8 @@ internal sealed class CustomerSearchCriteriaValidator : AbstractValidator<Custom
 {
     public CustomerSearchCriteriaValidator()
     {
-        RuleFor(criteria => criteria.ContactName)
-            .MaximumLength(30).WithMessage("Contact name cannot be longer than 30 characters.")
-            .When(criteria => !string.IsNullOrWhiteSpace(criteria.ContactName));
+        RuleFor(criteria => criteria.CompanyName)
+            .MaximumLength(30).WithMessage("Company name cannot be longer than 30 characters.")
+            .When(criteria => !string.IsNullOrWhiteSpace(criteria.CompanyName));
     }
 }

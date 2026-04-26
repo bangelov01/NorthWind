@@ -18,7 +18,7 @@ internal class GetCustomers : DatabaseTestBase
     [TestCase(null)]
     [TestCase("")]
     [TestCase("      ")]
-    public async Task When_ContactNameIsNotProvided(string? contactName)
+    public async Task When_CompanyNameIsNotProvided(string? companynName)
     {
         // Arrange
         Infrastructure.Persistance.Generated.Entities.Customer customer = await _EntityFactory.GetCustomer("ABCDE", "testCompanyName");
@@ -29,25 +29,25 @@ internal class GetCustomers : DatabaseTestBase
         await _DbContext.SaveChangesAsync();
 
         // Act
-        IList<CustomerOverviewDto> result = await _CustomerService.GetCustomers(contactName);
+        IList<CustomerOverviewDto> result = await _CustomerService.GetCustomers(companynName);
 
         // Assert
         Assert.That(result, Has.Count.EqualTo(1));
 
         Assert.That(result[0].CustomerId, Is.EqualTo(customer.CustomerId));
-        Assert.That(result[0].ContactName, Is.EqualTo(customer.ContactName));
+        Assert.That(result[0].CompanyName, Is.EqualTo(customer.CompanyName));
         Assert.That(result[0].OrderCount, Is.EqualTo(customer.Orders.Count));
     }
 
-    [TestCase("testContactName")]
-    [TestCase("testCont")]
-    public async Task When_ContactNameIsProvided_And_Matches(string contactName)
+    [TestCase("testCompanyName")]
+    [TestCase("testComp")]
+    public async Task When_CompanyNameIsProvided_And_Matches(string companyName)
     {
         // Arrange
         Infrastructure.Persistance.Generated.Entities.Customer customer = await _EntityFactory.GetCustomer("ALFKI", "testCompanyName");
 
         Infrastructure.Persistance.Generated.Entities.Customer secondCustomer = await _EntityFactory.GetCustomer("AHGTA", "secondTestCompanyName");
-        secondCustomer.ContactName = "differentName";
+        secondCustomer.CompanyName = "differentName";
 
         Order order = await _EntityFactory.GetOrder();
         order.Customer = customer;
@@ -58,18 +58,18 @@ internal class GetCustomers : DatabaseTestBase
         await _DbContext.SaveChangesAsync();
 
         // Act
-        IList<CustomerOverviewDto> result = await _CustomerService.GetCustomers(contactName);
+        IList<CustomerOverviewDto> result = await _CustomerService.GetCustomers(companyName);
 
         // Assert
         Assert.That(result, Has.Count.EqualTo(1));
 
         Assert.That(result[0].CustomerId, Is.EqualTo(customer.CustomerId));
-        Assert.That(result[0].ContactName, Is.EqualTo(customer.ContactName));
+        Assert.That(result[0].CompanyName, Is.EqualTo(customer.CompanyName));
         Assert.That(result[0].OrderCount, Is.EqualTo(customer.Orders.Count));
     }
 
     [Test]
-    public async Task When_ContactNameIsProvided_And_DoesNotMatch()
+    public async Task When_CompanyNameIsProvided_And_DoesNotMatch()
     {
         // Arrange
         await _EntityFactory.GetCustomer("ALFKI", "testCompanyName");
