@@ -18,7 +18,6 @@ internal abstract class DatabaseTestBase
             .Options;
 
         _DbContext = new NorthWindDbContext(contextOptions);
-        _DbContext.Database.EnsureDeleted();
         _DbContext.Database.EnsureCreated();
 
         _EntityFactory = new EntityFactory(_DbContext);
@@ -27,6 +26,7 @@ internal abstract class DatabaseTestBase
     [TearDown]
     public virtual void TearDownDatabase()
     {
+        _DbContext.Database.EnsureDeleted();
         _DbContext.Dispose();
     }
 }

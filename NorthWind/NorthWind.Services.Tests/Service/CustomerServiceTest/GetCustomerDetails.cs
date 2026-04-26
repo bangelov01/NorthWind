@@ -20,6 +20,7 @@ internal class GetCustomerDetails : DatabaseTestBase
     {
         // Arrange
         await _EntityFactory.GetCustomer("AAAAA", "testCompanyName");
+
         await _DbContext.SaveChangesAsync();
 
         // Act
@@ -34,20 +35,11 @@ internal class GetCustomerDetails : DatabaseTestBase
     {
         // Arrange
         Infrastructure.Persistance.Generated.Entities.Customer customer = await _EntityFactory.GetCustomer("AAAAA", "testCompanyName");
-        customer.ContactName = "testContactName";
-        customer.ContactTitle = "testContactTitle";
-        customer.Address = "testAddress";
-        customer.City = "testCity";
-        customer.Region = "testRegion";
-        customer.PostalCode = "testPostalCode";
-        customer.Country = "testCountry";
-        customer.Phone = "testPhone";
-        customer.Fax = "testFax";
 
-        Order firstOrder = await _EntityFactory.GetOrder();
-        firstOrder.Customer = customer;
-        await _EntityFactory.GetOrderDetail(firstOrder, await _EntityFactory.GetProduct("firstTestProductName", true), 200m, 2, 0.2f);
-        await _EntityFactory.GetOrderDetail(firstOrder, await _EntityFactory.GetProduct("secondTestProductName", true), 300m, 5, 0.1f);
+        Order order = await _EntityFactory.GetOrder();
+        order.Customer = customer;
+        await _EntityFactory.GetOrderDetail(order, await _EntityFactory.GetProduct("firstTestProductName", true), 200m, 2, 0.2f);
+        await _EntityFactory.GetOrderDetail(order, await _EntityFactory.GetProduct("secondTestProductName", true), 300m, 5, 0.1f);
 
         await _DbContext.SaveChangesAsync();
 
@@ -70,8 +62,8 @@ internal class GetCustomerDetails : DatabaseTestBase
         Assert.That(result.Fax, Is.EqualTo(customer.Fax));
 
         Assert.That(result.Orders, Has.Count.EqualTo(1));
-        Assert.That(result.Orders.First().OrderId, Is.EqualTo(firstOrder.OrderId));
+        Assert.That(result.Orders.First().OrderId, Is.EqualTo(order.OrderId));
         Assert.That(result.Orders.First().TotalValue, Is.EqualTo(1670.0m));
-        Assert.That(result.Orders.First().ProductCount, Is.EqualTo(firstOrder.OrderDetails.Count));
+        Assert.That(result.Orders.First().ProductCount, Is.EqualTo(order.OrderDetails.Count));
     }
 }

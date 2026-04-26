@@ -22,7 +22,6 @@ internal class GetCustomers : DatabaseTestBase
     {
         // Arrange
         Infrastructure.Persistance.Generated.Entities.Customer customer = await _EntityFactory.GetCustomer("ABCDE", "testCompanyName");
-        customer.ContactName = "testContactName";
 
         Order order = await _EntityFactory.GetOrder();
         order.Customer = customer;
@@ -46,7 +45,6 @@ internal class GetCustomers : DatabaseTestBase
     {
         // Arrange
         Infrastructure.Persistance.Generated.Entities.Customer customer = await _EntityFactory.GetCustomer("ALFKI", "testCompanyName");
-        customer.ContactName = "testContactName";
 
         Infrastructure.Persistance.Generated.Entities.Customer secondCustomer = await _EntityFactory.GetCustomer("AHGTA", "secondTestCompanyName");
         secondCustomer.ContactName = "differentName";
@@ -74,8 +72,7 @@ internal class GetCustomers : DatabaseTestBase
     public async Task When_ContactNameIsProvided_And_DoesNotMatch()
     {
         // Arrange
-        Infrastructure.Persistance.Generated.Entities.Customer customer = await _EntityFactory.GetCustomer("ALFKI", "testCompanyName");
-        customer.ContactName = "testContactName";
+        await _EntityFactory.GetCustomer("ALFKI", "testCompanyName");
 
         await _DbContext.SaveChangesAsync();
 

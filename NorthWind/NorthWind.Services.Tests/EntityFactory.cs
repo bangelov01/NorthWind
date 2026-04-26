@@ -3,7 +3,7 @@ using NorthWind.Infrastructure.Persistance.Generated.Entities;
 
 namespace NorthWind.Services.Tests;
 
-internal class EntityFactory(NorthWindDbContext dbContext)
+public class EntityFactory(NorthWindDbContext dbContext)
 {
     public async Task<Infrastructure.Persistance.Generated.Entities.Customer> GetCustomer(string customerId, string companyName)
     {
@@ -11,6 +11,15 @@ internal class EntityFactory(NorthWindDbContext dbContext)
             {
                 CustomerId = customerId,
                 CompanyName = companyName,
+                ContactName = "testContactName",
+                ContactTitle = "testContactTitle",
+                Address = "testAddress",
+                City = "testCity",
+                Region = "testRegion",
+                PostalCode = "testPostalCode",
+                Country = "testCountry",
+                Phone = "testPhone",
+                Fax = "testFax",
             };
 
         await dbContext.Customers.AddAsync(customer);
