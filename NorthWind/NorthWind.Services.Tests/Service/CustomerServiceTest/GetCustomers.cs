@@ -29,14 +29,15 @@ internal class GetCustomers : DatabaseTestBase
         await _DbContext.SaveChangesAsync();
 
         // Act
-        IList<CustomerOverviewDto> result = await _CustomerService.GetCustomers(companynName);
+        IReadOnlyCollection<CustomerOverviewDto> result = await _CustomerService.GetCustomers(companynName);
 
         // Assert
         Assert.That(result, Has.Count.EqualTo(1));
 
-        Assert.That(result[0].CustomerId, Is.EqualTo(customer.CustomerId));
-        Assert.That(result[0].CompanyName, Is.EqualTo(customer.CompanyName));
-        Assert.That(result[0].OrderCount, Is.EqualTo(customer.Orders.Count));
+        CustomerOverviewDto firstInList = result.First();
+        Assert.That(firstInList.CustomerId, Is.EqualTo(customer.CustomerId));
+        Assert.That(firstInList.CompanyName, Is.EqualTo(customer.CompanyName));
+        Assert.That(firstInList.OrderCount, Is.EqualTo(customer.Orders.Count));
     }
 
     [TestCase("testCompanyName")]
@@ -58,14 +59,15 @@ internal class GetCustomers : DatabaseTestBase
         await _DbContext.SaveChangesAsync();
 
         // Act
-        IList<CustomerOverviewDto> result = await _CustomerService.GetCustomers(companyName);
+        IReadOnlyCollection<CustomerOverviewDto> result = await _CustomerService.GetCustomers(companyName);
 
         // Assert
         Assert.That(result, Has.Count.EqualTo(1));
 
-        Assert.That(result[0].CustomerId, Is.EqualTo(customer.CustomerId));
-        Assert.That(result[0].CompanyName, Is.EqualTo(customer.CompanyName));
-        Assert.That(result[0].OrderCount, Is.EqualTo(customer.Orders.Count));
+        CustomerOverviewDto firstInList = result.First();
+        Assert.That(firstInList.CustomerId, Is.EqualTo(customer.CustomerId));
+        Assert.That(firstInList.CompanyName, Is.EqualTo(customer.CompanyName));
+        Assert.That(firstInList.OrderCount, Is.EqualTo(customer.Orders.Count));
     }
 
     [Test]
@@ -77,7 +79,7 @@ internal class GetCustomers : DatabaseTestBase
         await _DbContext.SaveChangesAsync();
 
         // Act
-        IList<CustomerOverviewDto> result = await _CustomerService.GetCustomers("differentName");
+        IReadOnlyCollection<CustomerOverviewDto> result = await _CustomerService.GetCustomers("differentName");
 
         // Assert
         Assert.That(result, Is.Empty);

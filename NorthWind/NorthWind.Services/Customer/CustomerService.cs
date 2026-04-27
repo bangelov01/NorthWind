@@ -6,7 +6,7 @@ namespace NorthWind.Services.Customer;
 
 internal class CustomerService(NorthWindDbContext dbContext) : ICustomerService
 {
-    public async Task<IList<CustomerOverviewDto>> GetCustomers(string? companyName)
+    public async Task<IReadOnlyCollection<CustomerOverviewDto>> GetCustomers(string? companyName)
     {
         IQueryable<Infrastructure.Persistance.Generated.Entities.Customer> customersQuery = dbContext.Customers.AsNoTracking();
 

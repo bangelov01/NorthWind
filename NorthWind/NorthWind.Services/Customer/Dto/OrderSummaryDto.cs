@@ -1,6 +1,6 @@
 namespace NorthWind.Services.Customer.Dto;
 
-public class OrderSummaryDto
+public record OrderSummaryDto
 {
     public required int OrderId { get; init; }
 

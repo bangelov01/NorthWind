@@ -10,11 +10,11 @@ namespace NorthWind.Api.Rest.Customer;
 
 [Route("api/[controller]")]
 [ApiController]
-[ProducesResponseType(StatusCodes.Status200OK)]
 [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 public class CustomersController(ICustomerService customerService) : ControllerBase
 {
     [HttpGet]
+    [ProducesResponseType(typeof(IReadOnlyCollection<CustomerOverviewDto>), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IReadOnlyCollection<CustomerOverviewDto>>> GetCustomers([FromQuery]CustomerSearchCriteria criteria, IValidator<CustomerSearchCriteria> validator)
     {
@@ -25,12 +25,13 @@ public class CustomersController(ICustomerService customerService) : ControllerB
             return ValidationProblem(new ValidationProblemDetails(validationResult.ToDictionary()));
         }
 
-        IList<CustomerOverviewDto> customers = await customerService.GetCustomers(criteria.CompanyName);
+        IReadOnlyCollection<CustomerOverviewDto> customers = await customerService.GetCustomers(criteria.CompanyName);
 
         return Ok(customers);
     }
 
     [HttpGet("{id:length(5)}")]
+    [ProducesResponseType(typeof(CustomerDetailsDto), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<CustomerDetailsDto>> GetCustomerDetails([Required]string id)
     {

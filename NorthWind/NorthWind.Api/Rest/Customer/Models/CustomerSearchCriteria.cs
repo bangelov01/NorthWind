@@ -1,6 +1,6 @@
 ﻿namespace NorthWind.Api.Rest.Customer.Models;
 
-public class CustomerSearchCriteria
+public record CustomerSearchCriteria
 {
     public string? CompanyName { get; init; }
 }
