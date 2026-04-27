@@ -21,3 +21,9 @@
 #### Notes:
 - Agentic work was mainly done on the frontend. The prompts used can be found in `PROMPTS.md`
 - I mapped out some general guidelines and project structure in `CLAUDE.md` for more context on the app
+- Improvements that can be done:
+  - Implement pagination for the customers result list
+  - Set up a file based logger (e.g Serilog)
+  - Add Auth
+  - Infrastructure can be decoupled from Services with Repository/Unit of work
+  - SqlLite for tests instead of in-memory

@@ -20,7 +20,7 @@ internal class CustomerService(NorthWindDbContext dbContext) : ICustomerService
                 CustomerId = customer.CustomerId,
                 CompanyName = customer.CompanyName,
                 OrderCount = customer.Orders.Count
-            }).ToListAsync();
+            }).OrderBy(c => c.CompanyName).ToListAsync();
     }
 
     public async Task<CustomerDetailsDto?> GetCustomerDetails(string id)
@@ -42,7 +42,6 @@ internal class CustomerService(NorthWindDbContext dbContext) : ICustomerService
                            Phone = customer.Phone,
                            Fax = customer.Fax,
                            Orders = customer.Orders
-                               .OrderByDescending(order => order.OrderId)
                                .Select(order => new OrderSummaryDto
                                    {
                                        OrderId = order.OrderId,
@@ -52,6 +51,7 @@ internal class CustomerService(NorthWindDbContext dbContext) : ICustomerService
                                            2),
                                        ProductCount = order.OrderDetails.Count
                                    })
+                               .OrderByDescending(order => order.OrderId)
                                .ToList()
                        })
                    .FirstOrDefaultAsync();

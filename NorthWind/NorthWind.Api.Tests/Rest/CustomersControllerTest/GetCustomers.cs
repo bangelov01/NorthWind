@@ -33,13 +33,13 @@ internal class GetCustomers : ApiTestBase
         Assert.That(result, Is.Not.Null);
 
         Assert.That(result, Has.Count.EqualTo(2));
-        Assert.That(result[0].CustomerId, Is.EqualTo(customer.CustomerId));
-        Assert.That(result[0].CompanyName, Is.EqualTo(customer.CompanyName));
-        Assert.That(result[0].OrderCount, Is.EqualTo(customer.Orders.Count));
+        Assert.That(result[0].CustomerId, Is.EqualTo(secondCustomer.CustomerId));
+        Assert.That(result[0].CompanyName, Is.EqualTo(secondCustomer.CompanyName));
+        Assert.That(result[0].OrderCount, Is.EqualTo(secondCustomer.Orders.Count));
 
-        Assert.That(result[1].CustomerId, Is.EqualTo(secondCustomer.CustomerId));
-        Assert.That(result[1].CompanyName, Is.EqualTo(secondCustomer.CompanyName));
-        Assert.That(result[1].OrderCount, Is.EqualTo(secondCustomer.Orders.Count));
+        Assert.That(result[1].CustomerId, Is.EqualTo(customer.CustomerId));
+        Assert.That(result[1].CompanyName, Is.EqualTo(customer.CompanyName));
+        Assert.That(result[1].OrderCount, Is.EqualTo(customer.Orders.Count));
     }
 
     [Test]

@@ -21,10 +21,11 @@ internal class GetCustomers : DatabaseTestBase
     public async Task When_CompanyNameIsNotProvided(string? companynName)
     {
         // Arrange
-        Infrastructure.Persistance.Generated.Entities.Customer customer = await _EntityFactory.GetCustomer("ABCDE", "testCompanyName");
+        Infrastructure.Persistance.Generated.Entities.Customer customer = await _EntityFactory.GetCustomer("AXIVC", "bCompanyName");
+        Infrastructure.Persistance.Generated.Entities.Customer secondCustomer = await _EntityFactory.GetCustomer("ABCDE", "aCompanyName");
 
         Order order = await _EntityFactory.GetOrder();
-        order.Customer = customer;
+        order.Customer = secondCustomer;
 
         await _DbContext.SaveChangesAsync();
 
@@ -32,12 +33,17 @@ internal class GetCustomers : DatabaseTestBase
         IReadOnlyCollection<CustomerOverviewDto> result = await _CustomerService.GetCustomers(companynName);
 
         // Assert
-        Assert.That(result, Has.Count.EqualTo(1));
+        Assert.That(result, Has.Count.EqualTo(2));
 
         CustomerOverviewDto firstInList = result.First();
-        Assert.That(firstInList.CustomerId, Is.EqualTo(customer.CustomerId));
-        Assert.That(firstInList.CompanyName, Is.EqualTo(customer.CompanyName));
-        Assert.That(firstInList.OrderCount, Is.EqualTo(customer.Orders.Count));
+        Assert.That(firstInList.CustomerId, Is.EqualTo(secondCustomer.CustomerId));
+        Assert.That(firstInList.CompanyName, Is.EqualTo(secondCustomer.CompanyName));
+        Assert.That(firstInList.OrderCount, Is.EqualTo(secondCustomer.Orders.Count));
+
+        CustomerOverviewDto secondInList = result.Last();
+        Assert.That(secondInList.CustomerId, Is.EqualTo(customer.CustomerId));
+        Assert.That(secondInList.CompanyName, Is.EqualTo(customer.CompanyName));
+        Assert.That(secondInList.OrderCount, Is.EqualTo(customer.Orders.Count));
     }
 
     [TestCase("testCompanyName")]
